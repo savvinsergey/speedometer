@@ -1,7 +1,8 @@
 import {ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {state, style, trigger} from '@angular/animations';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, interval} from 'rxjs';
 import {SpeedometerData, SpeedometerService} from './speedometer.service';
+import {Subscription} from 'rxjs/internal/Subscription';
 
 
 @Component({
@@ -23,21 +24,20 @@ import {SpeedometerData, SpeedometerService} from './speedometer.service';
   ]
 })
 export class SpeedometerComponent implements OnInit, OnDestroy {
-  @Input() interval = 4000;
+  @Input()
+  readonly interval = 4000;
   readonly data$: BehaviorSubject<SpeedometerData> = this.speedometerService.data$;
 
-  private intervalId: number;
+  private subscription: Subscription;
 
   constructor(private speedometerService: SpeedometerService) { }
 
   ngOnInit(): void {
-    this.intervalId = setInterval(() =>
-      this.speedometerService.updateSpeed(), this.interval);
+    this.subscription = interval(this.interval)
+      .subscribe(() => this.speedometerService.updateSpeed());
   }
 
   ngOnDestroy(): void {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
+    this.subscription.unsubscribe();
   }
 }
