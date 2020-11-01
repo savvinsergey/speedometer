@@ -1,0 +1,28 @@
+:host {
+  display: block;
+  width: 440px;
+  height: 440px;
+  background-image: url("/assets/img/meter.png");
+  position: relative;
+}
+
+.arrow {
+  position: absolute;
+  left: 193px;
+  top: 70px;
+  transform-origin: 27px 147px;
+  transform: rotate(-120deg);
+  transition: 2000ms ease-out;
+}
+
+.color-indicator {
+  height: 370px;
+  width: 370px;
+  opacity: .2;
+  border-radius: 50%;
+  position: absolute;
+  top: 35px;
+  left: 35px;
+  z-index: 1;
+  transition: 2000ms ease-out;
+}

@@ -1,0 +1,13 @@
+<ng-template [ngIf]="{data: data$ | async}" let-async>
+  <div class="color-indicator" [@colorState]="async.data?.color"></div>
+  <div class="arrow" [@speedState]="{value: 'default',  params: { degrees: async.data?.degrees}}">
+    <img src="assets/img/dial.png">
+  </div>
+</ng-template>
+
+<!--SECOND VARIANT
+<div class="color-indicator" [ngStyle]="{backgroundColor: (data$ | async)?.color}"></div>
+<div class="arrow" [ngStyle]="{transform: 'rotate(' + ((data$ | async)?.degrees) + 'deg)'}">
+  <img src="assets/img/dial.png">
+</div>-->
+
